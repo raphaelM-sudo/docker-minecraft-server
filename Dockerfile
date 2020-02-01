@@ -1,8 +1,11 @@
-FROM openjdk:8u212-jre-alpine
+FROM balenalib/raspberrypi3-alpine
+
+RUN ["cross-build-start"]
 
 LABEL maintainer "itzg"
 
 RUN apk add --no-cache -U \
+  openjdk8-jre \
   openssl \
   imagemagick \
   lsof \
@@ -26,7 +29,7 @@ RUN addgroup -g 1000 minecraft \
 
 EXPOSE 25565 25575
 
-ARG ARCH=amd64
+ARG ARCH=armv7
 
 ARG EASY_ADD_VER=0.3.0
 ADD https://github.com/itzg/easy-add/releases/download/${EASY_ADD_VER}/easy-add_${EASY_ADD_VER}_linux_${ARCH} /usr/bin/easy-add
