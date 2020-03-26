@@ -20,8 +20,6 @@ RUN groupadd -g 1000 minecraft \
 
 EXPOSE 25565 25575
 
-USER minecraft:minecraft
-
 # hook into docker BuildKit --platform support
 # see https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
 ARG TARGETOS=linux
@@ -31,6 +29,8 @@ ARG TARGETVARIANT=""
 ARG EASY_ADD_VER=0.7.0
 ADD https://github.com/itzg/easy-add/releases/download/${EASY_ADD_VER}/easy-add_${TARGETOS}_${TARGETARCH}${TARGETVARIANT} /usr/bin/easy-add
 RUN chmod +x /usr/bin/easy-add
+
+USER minecraft:minecraft
 
 RUN easy-add --var os=${TARGETOS} --var arch=${TARGETARCH}${TARGETVARIANT} \
   --var version=1.2.0 --var app=restify --file {{.app}} \
@@ -68,6 +68,8 @@ ENV UID=1000 GID=1000 \
   RESOURCE_PACK= RESOURCE_PACK_SHA1= \
   LEVEL_TYPE=DEFAULT GENERATOR_SETTINGS= WORLD= MODPACK= MODS= SERVER_PORT=25565 ONLINE_MODE=TRUE CONSOLE=true SERVER_NAME="Dedicated Server" \
   REPLACE_ENV_VARIABLES="FALSE" ENV_VARIABLE_PREFIX="CFG_"
+
+USER root
 
 COPY start* /
 RUN dos2unix /start* && chmod +x /start*
