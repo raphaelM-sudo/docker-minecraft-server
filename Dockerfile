@@ -1,30 +1,26 @@
-FROM openjdk:8u212-jre-alpine
+FROM ubuntu
 
-LABEL maintainer "itzg"
+LABEL maintainer "toastY"
 
-RUN apk add --no-cache -U \
-  openssl \
-  imagemagick \
-  lsof \
-  su-exec \
-  shadow \
-  bash \
-  curl iputils wget \
+RUN apt-get -y update \
+  && apt-get -y install \
+  curl wget \
   git \
-  jq \
-  mysql-client \
-  tzdata \
   rsync \
-  nano
+  unzip \
+  default-jre
 
 HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost --port $SERVER_PORT
 
-RUN addgroup -g 1000 minecraft \
-  && adduser -Ss /bin/false -u 1000 -G minecraft -h /home/minecraft minecraft \
-  && mkdir -m 777 /data /mods /config /plugins \
-  && chown minecraft:minecraft /data /config /mods /plugins /home/minecraft
+RUN groupadd -g 1000 minecraft \
+  && useradd -s /bin/false -u 1000 -g minecraft -d /home/minecraft minecraft \
+  && mkdir -m 777 /data /mods /config /plugins /home/minecraft \
+  && chown minecraft:minecraft /data /config /mods /plugins /home/minecraft \
+  && git config --global --unset core.autocrlf; exit 0
 
 EXPOSE 25565 25575
+
+USER minecraft:minecraft
 
 # hook into docker BuildKit --platform support
 # see https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
