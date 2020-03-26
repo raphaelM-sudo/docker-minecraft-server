@@ -8,7 +8,8 @@ RUN apt-get -y update \
   git \
   rsync \
   unzip \
-  default-jre
+  default-jre \
+  dos2unix
 
 HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost --port $SERVER_PORT
 
