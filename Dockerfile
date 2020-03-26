@@ -30,8 +30,6 @@ ARG EASY_ADD_VER=0.7.0
 ADD https://github.com/itzg/easy-add/releases/download/${EASY_ADD_VER}/easy-add_${TARGETOS}_${TARGETARCH}${TARGETVARIANT} /usr/bin/easy-add
 RUN chmod +x /usr/bin/easy-add
 
-USER minecraft:minecraft
-
 RUN easy-add --var os=${TARGETOS} --var arch=${TARGETARCH}${TARGETVARIANT} \
   --var version=1.2.0 --var app=restify --file {{.app}} \
   --from https://github.com/itzg/{{.app}}/releases/download/{{.version}}/{{.app}}_{{.version}}_{{.os}}_{{.arch}}.tar.gz
@@ -69,7 +67,5 @@ ENV UID=1000 GID=1000 \
   LEVEL_TYPE=DEFAULT GENERATOR_SETTINGS= WORLD= MODPACK= MODS= SERVER_PORT=25565 ONLINE_MODE=TRUE CONSOLE=true SERVER_NAME="Dedicated Server" \
   REPLACE_ENV_VARIABLES="FALSE" ENV_VARIABLE_PREFIX="CFG_"
 
-USER root
-
 COPY start* /
-RUN dos2unix /start* && chmod +x /start*
+RUN dos2unix /start* && chmod u+s /start* && chown minecraft:minecraft /start*
