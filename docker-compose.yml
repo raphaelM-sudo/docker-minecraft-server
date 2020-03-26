@@ -1,11 +1,12 @@
 version: '3'
-# Other docker-compose examples in /examples
 
 services:
   minecraft:
-    image: itzg/minecraft-server
+    container_name: "minecraft"
+    build: .
     ports:
-      - "25565:25565"
+      - "25565:25565/tcp"
+      - "25565:25565/udp"
     volumes:
       - "mc:/data"
     environment:
@@ -15,14 +16,6 @@ services:
       RCON_PASSWORD: "testing"
       RCON_PORT: 28016
     restart: always
-  rcon:
-    image: itzg/rcon
-    ports:
-      - "4326:4326"
-      - "4327:4327"
-    volumes:
-      - "rcon:/opt/rcon-web-admin/db"
 
 volumes:
   mc:
-  rcon:
