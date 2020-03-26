@@ -9,7 +9,9 @@ RUN apt-get -y update \
   rsync \
   unzip \
   default-jre \
-  dos2unix
+  dos2unix \
+  jq \
+  sudo
 
 HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost --port $SERVER_PORT
 
@@ -69,4 +71,4 @@ ENV UID=1000 GID=1000 \
   REPLACE_ENV_VARIABLES="FALSE" ENV_VARIABLE_PREFIX="CFG_"
 
 COPY start* /
-RUN dos2unix /start* && chmod u+s /start* && chown minecraft:minecraft /start*
+RUN dos2unix /start* && chmod +x /start*
