@@ -15,7 +15,6 @@ RUN apt-get -y update \
   lsof \
   imagemagick \
   mysql-client \
-  tzdata \
   nano
 
 HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost --port $SERVER_PORT
