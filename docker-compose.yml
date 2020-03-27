@@ -13,8 +13,9 @@ services:
       EULA: "TRUE"
       CONSOLE: "false"
       ENABLE_RCON: "true"
-      RCON_PASSWORD: "testing"
+      RCON_PASSWORD: "changeMe"
       RCON_PORT: 28016
+      TYPE: "SPIGOT"
     restart: always
 
 volumes:
