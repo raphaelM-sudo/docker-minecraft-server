@@ -11,7 +11,12 @@ RUN apt-get -y update \
   default-jre \
   dos2unix \
   jq \
-  sudo
+  gosu \
+  lsof \
+  imagemagick \
+  mysql-client \
+  tz-data \
+  nano
 
 HEALTHCHECK --start-period=1m CMD mc-monitor status --host localhost --port $SERVER_PORT
 
