@@ -16,6 +16,7 @@ services:
       RCON_PASSWORD: "changeMe"
       RCON_PORT: 28016
       TYPE: "SPIGOT"
+      VERSION: "LATEST"
     restart: always
 
 volumes:
