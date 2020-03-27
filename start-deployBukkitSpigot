@@ -20,7 +20,7 @@ function buildSpigotFromSource {
     cat /data/spigot_build.log
     exit 1
   fi
-  mv craftbukkit-*.jar /data/${SERVER}
+  mv craftbukkit-*.jar /data/${SERVER} 2> /dev/null; true
   log "Cleaning up"
   rm -rf /data/temp
   cd /data
