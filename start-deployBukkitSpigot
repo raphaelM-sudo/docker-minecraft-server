@@ -14,13 +14,13 @@ function buildSpigotFromSource {
 
   logn ''
   curl -sSL -o /data/temp/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
-    java $jvmOpts -jar /data/temp/BuildTools.jar --rev $VANILLA_VERSION 2>&1 |tee /data/spigot_build.log| while read l; do echo -n .; done; log "done"
-  if ! mv spigot-*.jar /data/spigot_server.jar; then
+    java $jvmOpts -jar /data/temp/BuildTools.jar --rev $VANILLA_VERSION > /dev/null
+  log "done"
+  if ! mv spigot-*.jar /data/${SERVER}; then
     log "ERR failed to build Spigot"
     cat /data/spigot_build.log
     exit 1
   fi
-  mv craftbukkit-*.jar /data/${SERVER}
   log "Cleaning up"
   rm -rf /data/temp
   cd /data
