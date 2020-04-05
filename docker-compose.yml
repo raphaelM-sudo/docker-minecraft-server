@@ -8,14 +8,18 @@ services:
       - "25565:25565/tcp"
       - "25565:25565/udp"
     volumes:
-      - "mc:/data"
+      - "~/minecraft:/data"
     environment:
       EULA: "TRUE"
       CONSOLE: "false"
       ENABLE_RCON: "true"
       RCON_PASSWORD: "changeMe"
       RCON_PORT: 28016
+      MEMORY: "2G"
       TYPE: "SPIGOT"
+      VERSION: "LATEST"
+      BUILD_FROM_SOURCE: "true"
+    command: "nogui --noconsole"
     restart: always
 
 volumes:
