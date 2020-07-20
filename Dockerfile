@@ -2,6 +2,8 @@ FROM ubuntu
 
 LABEL maintainer "toastY"
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get -y update \
   && apt-get -y install \
   curl wget \
